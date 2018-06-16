@@ -18,11 +18,11 @@ func (i IPv4) ToIP() (ip net.IP) {
 }
 
 type IPRange struct {
-	left, right IPv4
+	Left, Right IPv4
 }
 
 func NewIPRange(left, right IPv4) *IPRange {
-	return &IPRange{left: left, right: right}
+	return &IPRange{Left: left, Right: right}
 }
 
 func NewIPRangeByIPs(left, right net.IP) *IPRange {
@@ -33,12 +33,12 @@ func NewIPRangeByIPs(left, right net.IP) *IPRange {
 }
 
 func (r *IPRange) Contains(ip IPv4) bool {
-	return ip >= r.left && ip <= r.right
+	return ip >= r.Left && ip <= r.Right
 }
 
 func (r *IPRange) ContainsIP(ip net.IP) bool {
 	t := netIPtoIPv4(ip)
-	return t >= r.left && t <= r.right
+	return t >= r.Left && t <= r.Right
 }
 
 func (r *IPRange) Subnets() (nets []*net.IPNet) {
@@ -47,8 +47,8 @@ func (r *IPRange) Subnets() (nets []*net.IPNet) {
 		allOnes = ^IPv4(0)
 	)
 
-	left := r.left
-	right := r.right
+	left := r.Left
+	right := r.Right
 
 	for left <= right {
 		maskSize := maxMask
