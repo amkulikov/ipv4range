@@ -12,7 +12,7 @@ func TestIPv4_ToIP(t *testing.T) {
 		net.ParseIP("255.255.255.255"),
 	}
 	for _, ip := range testIPs {
-		temp := netIPtoIPv4(ip).ToIP()
+		temp := ToIPv4(ip).ToIP()
 		if !ip.Equal(temp) {
 			t.Errorf("got %s, %s expected", temp, ip)
 		}

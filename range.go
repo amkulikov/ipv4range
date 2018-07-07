@@ -7,7 +7,7 @@ import (
 
 type IPv4 uint32
 
-func netIPtoIPv4(ip net.IP) IPv4 {
+func ToIPv4(ip net.IP) IPv4 {
 	return IPv4(binary.BigEndian.Uint32(ip.To4()[:4]))
 }
 
@@ -27,8 +27,8 @@ func NewIPRange(left, right IPv4) *IPRange {
 
 func NewIPRangeByIPs(left, right net.IP) *IPRange {
 	return NewIPRange(
-		netIPtoIPv4(left),
-		netIPtoIPv4(right),
+		ToIPv4(left),
+		ToIPv4(right),
 	)
 }
 
@@ -37,7 +37,7 @@ func (r *IPRange) Contains(ip IPv4) bool {
 }
 
 func (r *IPRange) ContainsIP(ip net.IP) bool {
-	t := netIPtoIPv4(ip)
+	t := ToIPv4(ip)
 	return t >= r.Left && t <= r.Right
 }
 
